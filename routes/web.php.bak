@@ -1,0 +1,207 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\SiswaAuthController;
+use App\Http\Controllers\Auth\GuruAuthController;
+use App\Http\Controllers\Auth\AdminAuthController;
+use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\GuruProfileController;
+use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\Guru\AbsensiGuruController;
+use App\Http\Controllers\Guru\IzinController;
+use App\Http\Controllers\Guru\TugasController as GuruTugasController;
+use App\Http\Controllers\Guru\MateriController;
+use App\Http\Controllers\Guru\PenilaianController;
+use App\Http\Controllers\KepalaSekolah\IzinController as KepalaSekolahIzinController;
+use App\Http\Controllers\SiswaController; // DIPERBARUI
+use App\Http\Controllers\Siswa\AbsensiSiswaController;
+use App\Http\Controllers\Siswa\TugasController as SiswaTugasController;
+use App\Http\Controllers\Siswa\MateriController as SiswaMateriController;
+use App\Http\Controllers\Admin\KalenderSekolahController;
+use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\Admin\PendaftaranController as AdminPendaftaranController;
+use App\Http\Controllers\RaporController;
+use App\Http\Controllers\Admin\ProfilSekolahController;
+use App\Http\Controllers\Admin\JamPelajaranController;
+use App\Http\Controllers\Admin\JadwalPelajaranController;
+use App\Http\Controllers\Admin\AdminController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+*/
+
+// ======= ROOT =======
+Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/daftar', [PendaftaranController::class, 'create'])->name('daftar');
+Route::post('/daftar', [PendaftaranController::class, 'store'])->name('daftar.store');
+
+// ======= BREEZE DASHBOARD =======
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// ======= BREEZE PROFILE =======
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// ======= SISWA AUTH =======
+Route::prefix('auth')->group(function () {
+    // Login
+    Route::get('/siswa-login', [SiswaAuthController::class, 'showLogin'])->name('auth.siswa.login');
+    Route::post('/siswa-login', [SiswaAuthController::class, 'login'])->name('auth.siswa.login.submit');
+    // Logout
+    Route::post('/siswa-logout', [SiswaAuthController::class, 'logout'])->name('auth.siswa.logout');
+});
+
+// ======= SISWA DASHBOARD & MODULES =======
+Route::middleware(['redirect_if_not_siswa'])->prefix('siswa')->name('siswa.')->group(function () {
+    // Dashboard - DIPERBARUI
+    Route::get('/dashboard', [SiswaController::class, 'dashboard'])->name('dashboard');
+
+    // Absensi
+    Route::get('/absensi/create', [AbsensiSiswaController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi', [AbsensiSiswaController::class, 'store'])->name('absensi.store');
+    Route::get('/absensi/riwayat', [AbsensiSiswaController::class, 'riwayat'])->name('absensi.riwayat');
+
+    // Tugas
+    Route::get('/tugas', [SiswaTugasController::class, 'index'])->name('tugas.index');
+    Route::get('/tugas/{tugas}', [SiswaTugasController::class, 'show'])->name('tugas.show');
+    Route::post('/tugas/{tugas}', [SiswaTugasController::class, 'store'])->name('tugas.store');
+
+    // Materi
+    Route::get('/materi', [SiswaMateriController::class, 'index'])->name('materi.index');
+    Route::get('/materi/{materi}/download', [SiswaMateriController::class, 'download'])->name('materi.download');
+
+    // Kalender
+    Route::get('/kalender', function () {
+        return view('siswa.kalender.index');
+    })->name('kalender.index');
+    
+    // Rapor
+    Route::get('/rapor', [RaporController::class, 'showRaporSiswa'])->name('rapor.show');
+    Route::get('/rapor/download', [RaporController::class, 'downloadRaporSiswa'])->name('rapor.download');
+});
+
+
+// ======= GURU AUTH =======
+Route::prefix('auth')->group(function () {
+    // Login
+    Route::get('/guru-login', [GuruAuthController::class, 'showLogin'])->name('auth.guru.login');
+    Route::post('/guru-login', [GuruAuthController::class, 'login'])->name('auth.guru.login.submit');
+    // Logout
+    Route::post('/guru-logout', [GuruAuthController::class, 'logout'])->name('auth.guru.logout');
+});
+
+// ======= GURU DASHBOARD & MODULES =======
+Route::middleware(['redirect_if_not_guru'])->prefix('guru')->name('guru.')->group(function () { 
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('guru.index');
+    })->name('dashboard');
+
+    // Profile
+    Route::get('/profile', [GuruProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [GuruProfileController::class, 'update'])->name('profile.update');
+
+    // Absensi
+    Route::get('/absensi/create', [AbsensiGuruController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi', [AbsensiGuruController::class, 'store'])->name('absensi.store');
+    Route::get('/absensi/riwayat', [AbsensiGuruController::class, 'riwayat'])->name('absensi.riwayat');
+
+    // Pengajuan Izin
+    Route::get('/izin', [IzinController::class, 'index'])->name('izin.index');
+    Route::get('/izin/create', [IzinController::class, 'create'])->name('izin.create');
+    Route::post('/izin', [IzinController::class, 'store'])->name('izin.store');
+
+    // Manajemen Tugas
+    Route::resource('/tugas', GuruTugasController::class)->except([
+        'destroy'
+    ]);
+
+    // Manajemen Materi
+    Route::resource('/materi', MateriController::class)->except(['destroy']);
+    Route::patch('/materi/{materi}/status', [MateriController::class, 'updateStatus'])->name('materi.updateStatus');
+
+    // Penilaian
+    Route::patch('/penilaian/{pengumpulanTugas}', [PenilaianController::class, 'update'])->name('penilaian.update');
+
+    // Kalender
+    Route::get('/kalender', function () {
+        return view('guru.kalender.index');
+    })->name('kalender.index');
+
+    // Rapor (Wali Kelas)
+    Route::resource('rapor', RaporController::class);
+    // DIPERBAIKI: Nama rute disederhanakan agar tidak terjadi duplikasi prefix
+    Route::get('/rapor/{rapor}/pdf', [RaporController::class, 'generatePDF'])->name('rapor.pdf');
+
+});
+
+// ======= KEPALA SEKOLAH MODULES =======
+Route::middleware(['redirect_if_not_guru', 'is_kepala_sekolah'])->prefix('kepala-sekolah')->name('kepala-sekolah.')->group(function () {
+    Route::get('izin', [KepalaSekolahIzinController::class, 'index'])->name('izin.index');
+    Route::post('izin/{id}/approve', [KepalaSekolahIzinController::class, 'approve'])->name('izin.approve');
+    Route::post('izin/{id}/reject', [KepalaSekolahIzinController::class, 'reject'])->name('izin.reject');
+});
+
+// ======= ADMIN AUTH =======
+Route::prefix('auth')->group(function () {
+    // Login
+    Route::get('/admin-login', [AdminAuthController::class, 'showLogin'])->name('auth.admin.login');
+    Route::post('/admin-login', [AdminAuthController::class, 'login'])->name('auth.admin.login.submit');
+    // Logout
+    Route::post('/admin-logout', [AdminAuthController::class, 'logout'])->name('auth.admin.logout');
+});
+
+// ======= ADMIN DASHBOARD & MODULES =======
+Route::middleware(['redirect_if_not_admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Diperbarui: Menggunakan AdminController untuk dashboard
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+    // ** PENDAFTARAN BARU **
+    Route::resource('pendaftaran', AdminPendaftaranController::class)->only(['index', 'show', 'update']);
+
+    // Profile
+    Route::get('/profile', [AdminProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [AdminProfileController::class, 'update'])->name('profile.update');
+
+    // Profil Sekolah
+    Route::get('profil-sekolah', [ProfilSekolahController::class, 'index'])->name('profil-sekolah.index');
+    Route::post('profil-sekolah', [ProfilSekolahController::class, 'store'])->name('profil-sekolah.store');
+    Route::patch('profil-sekolah/{id}', [ProfilSekolahController::class, 'update'])->name('profil-sekolah.update');
+
+    // Load Master Data Routes
+    Route::prefix('master')->name('master.')->group(function () {
+        require __DIR__.'/master.php';
+    });
+
+    // Load Keuangan Routes
+    Route::prefix('keuangan')->name('keuangan.')->group(function () {
+        require __DIR__.'/keuangan.php';
+    });
+
+    Route::resource('peminjaman', PeminjamanController::class);
+
+    // Kalender Sekolah
+    Route::resource('kalender-sekolah', KalenderSekolahController::class);
+
+    // User Admin
+    Route::resource('user-admin', UserAdminController::class);
+
+    // Jam Pelajaran
+    Route::resource('jam-pelajaran', JamPelajaranController::class);
+});
+
+
+// ======= BREEZE AUTH =======
+require __DIR__.'/auth.php';

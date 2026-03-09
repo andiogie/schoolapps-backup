@@ -1,0 +1,51 @@
+/* Global Progress Bar */
+.global-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #f3f3f3;
+    z-index: 9999;
+    display: none;
+}
+.global-progress-bar .progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #81C784);
+    animation: progress-animation 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-animation {
+    0% { width: 0%; }
+    50% { width: 90%; }
+    100% { width: 100%; }
+}
+
+.table.table-bordered > tbody > tr:last-child > td {
+    border-width: 1px;
+}
+
+/*
+========================================================
+=== PERBAIKAN TAMPILAN FORM
+========================================================
+*/
+
+/* 1. Input Form di Mode Gelap */
+/* Aturan ini memastikan bahwa input form, select, dan textarea memiliki
+   garis (border) berwarna putih dan teks berwarna putih
+   saat mode gelap (.dark-version) aktif. */
+.dark-version .form-control,
+.dark-version .form-select,
+.dark-version textarea.form-control {
+  /* border: 1px solid rgba(255, 255, 255, 0.2) !important; */
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+/* 2. Panah Dropdown di Mode Gelap */
+/* Mengubah warna panah pada elemen select agar terlihat di mode gelap. */
+.dark-version .form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}

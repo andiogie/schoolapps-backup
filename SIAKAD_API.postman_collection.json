@@ -1,0 +1,471 @@
+{
+    "info": {
+        "_postman_id": "a9b8e1f5-7c1e-4b8a-a9a3-a7d0d0f5b1d7",
+        "name": "SIAKAD API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": "Koleksi API untuk Sistem Informasi Akademik (SIAKAD). Dibuat dan dikelola secara otomatis."
+    },
+    "item": [
+        {
+            "name": "Master Jurusan",
+            "item": [
+                {
+                    "name": "Get All Jurusan",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jurusan",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jurusan"]
+                        },
+                        "description": "Mengambil semua data jurusan yang ada di database."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Jurusan",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_jurusan\": \"Teknik Komputer & Jaringan\",\n    \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jurusan",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jurusan"]
+                        },
+                        "description": "Membuat data jurusan baru."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Jurusan",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_jurusan\": \"Teknik Komputer dan Jaringan (TKJ)\",\n    \"is_active\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jurusan/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jurusan", "1"]
+                        },
+                        "description": "Memperbarui data jurusan berdasarkan ID."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Jurusan",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jurusan/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jurusan", "1"]
+                        },
+                        "description": "Menghapus data jurusan berdasarkan ID."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Master Kelas",
+            "item": [
+                {
+                    "name": "Get All Kelas",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/kelas",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "kelas"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Kelas",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_kelas\": \"X TKJ 1\",\n    \"jurusan_id\": 1\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/kelas",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "kelas"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Kelas",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_kelas\": \"X Teknik Komputer Jaringan 1\",\n    \"is_active\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/kelas/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "kelas", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Kelas",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/kelas/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "kelas", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Master Guru",
+            "item": [
+                {
+                    "name": "Get All Guru",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/guru",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "guru"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Guru",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Dr. Ujang Sumarja\",\n    \"nip\": \"198001012005011001\",\n    \"email\": \"ujang.sumarja@sekolah.id\",\n    \"mapel_id\": 1,\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/guru",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "guru"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Guru",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama\": \"Dr. Ujang Sumarja, M.Kom.\",\n    \"email\": \"ujang.new@sekolah.id\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/guru/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "guru", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Guru",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/guru/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "guru", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Master Mapel",
+            "item": [
+                 {
+                    "name": "Get All Mapel",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/mapel",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "mapel"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Mapel",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"kode_mapel\": \"IND-01\",\n    \"nama_mapel\": \"Bahasa Indonesia\",\n    \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/mapel",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "mapel"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Mapel",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_mapel\": \"Bahasa Indonesia Wajib\",\n    \"is_active\": false\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/mapel/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "mapel", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Mapel",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/mapel/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "mapel", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Master Siswa",
+            "item": [
+                {
+                    "name": "Get All Siswa",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/siswa",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "siswa"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Siswa",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_siswa\": \"Budi Santoso\",\n    \"nis\": \"20240001\",\n    \"email\": \"budi.s@sekolah.id\",\n    \"password\": \"password123\",\n    \"kelas_id\": 1,\n    \"jurusan_id\": 1,\n    \"tanggal_lahir\": \"2008-05-10\",\n    \"alamat\": \"Jl. Pendidikan No. 1, Jakarta\",\n    \"jenis_kelamin\": \"L\",\n    \"agama\": \"Islam\",\n    \"no_hp\": \"081234567890\",\n    \"asal_sekolah\": \"SMPN 1 Jakarta\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/siswa",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "siswa"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Siswa",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"nama_siswa\": \"Budi Santoso Pratama\",\n    \"kelas_id\": 2,\n    \"email\": \"budi.pratama@sekolah.id\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/siswa/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "siswa", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Siswa",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/siswa/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "siswa", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Master Tahun Ajaran",
+            "item": [
+                {
+                    "name": "Get All Tahun Ajaran",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tahun-ajaran",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tahun-ajaran"]
+                        },
+                        "description": "Mengambil semua data tahun ajaran."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Tahun Ajaran",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"tahun_ajaran\": \"2024 - 2025\",\n    \"semester\": \"Ganjil\",\n    \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tahun-ajaran",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tahun-ajaran"]
+                        },
+                        "description": "Membuat tahun ajaran baru. Mengatur `is_active` ke `true` akan menonaktifkan tahun ajaran lain yang aktif."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Tahun Ajaran",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"is_active\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/tahun-ajaran/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "tahun-ajaran", "1"]
+                        },
+                        "description": "Memperbarui tahun ajaran. Mengatur `is_active` ke `true` akan menonaktifkan tahun ajaran lain yang aktif."
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Master Jadwal Pelajaran",
+            "item": [
+                {
+                    "name": "Get All Jadwal Pelajaran",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jadwal-pelajaran",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jadwal-pelajaran"]
+                        },
+                        "description": "Mengambil daftar jadwal pelajaran dengan relasi."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create Jadwal Pelajaran",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"tahun_ajaran_id\": 1,\n    \"kelas_id\": 1,\n    \"mapel_id\": 1,\n    \"guru_id\": 1,\n    \"hari\": \"Senin\",\n    \"jam_mulai\": \"07:30\",\n    \"jam_selesai\": \"09:00\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jadwal-pelajaran",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jadwal-pelajaran"]
+                        },
+                        "description": "Membuat jadwal pelajaran baru."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Jadwal Pelajaran",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"hari\": \"Selasa\",\n    \"jam_mulai\": \"10:00\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jadwal-pelajaran/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jadwal-pelajaran", "1"]
+                        },
+                        "description": "Memperbarui jadwal pelajaran berdasarkan ID."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Delete Jadwal Pelajaran",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/jadwal-pelajaran/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "jadwal-pelajaran", "1"]
+                        },
+                        "description": "Menghapus jadwal pelajaran berdasarkan ID."
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://127.0.0.1:8000",
+            "type": "string",
+            "description": "URL dasar dari server API Laravel Anda."
+        }
+    ]
+}

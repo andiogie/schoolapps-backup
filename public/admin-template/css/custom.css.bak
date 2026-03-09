@@ -1,0 +1,163 @@
+
+/* Global Progress Bar */
+.global-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #f3f3f3;
+    z-index: 9999;
+    display: none;
+}
+.global-progress-bar .progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #81C784);
+    animation: progress-animation 1.5s ease-in-out infinite;
+}
+
+.table.table-bordered > tbody > tr:last-child > td {
+    border-width: 1px; 
+  }
+
+@keyframes progress-animation {
+    0% { width: 0%; }
+    50% { width: 90%; }
+    100% { width: 100%; }
+}
+
+/*
+=========================================================
+=== THEME OVERRIDES & FIXES                           ===
+=========================================================
+*/
+
+/* 1. Dark Theme Background Color Override */
+.dark-version,
+.dark-version .main-content,
+.dark-version .navbar-main {
+    background-color: #161719 !important;
+}
+.dark-version .sidenav,
+.dark-version .card {
+    background: #20222A !important;
+}
+
+/* 2. Unified Sidebar Text/Icon Fixes (All Scenarios) */
+
+/*  - Light Mode (Default) */
+.sidenav .nav-item:not(.active) .nav-link span {
+    color: #344767 !important; 
+    opacity: 0.9;
+}
+
+/* - Dark Mode + Default (Dark) Sidenav */
+.dark-version .sidenav .navbar-heading,
+.dark-version .sidenav .nav-item.active .nav-link span,
+.dark-version .sidenav .nav-item.active .nav-link i,
+.dark-version .sidenav .nav-item:hover .nav-link span,
+.dark-version .sidenav .nav-item:hover .nav-link i {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+.dark-version .sidenav .nav-item:not(.active) .nav-link span,
+.dark-version .sidenav .nav-item:not(.active) .nav-link i {
+    color: #ffffff !important;
+    opacity: 0.7 !important;
+}
+
+/* - Light Mode + Dark Sidenav */
+body:not(.dark-version) .sidenav.bg-gradient-dark .navbar-heading,
+body:not(.dark-version) .sidenav.bg-dark .navbar-heading,
+body:not(.dark-version) .sidenav.bg-gradient-dark .nav-item.active .nav-link span,
+body:not(.dark-version) .sidenav.bg-gradient-dark .nav-item.active .nav-link i,
+body:not(.dark-version) .sidenav.bg-dark .nav-item.active .nav-link span,
+body:not(.dark-version) .sidenav.bg-dark .nav-item.active .nav-link i {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+body:not(.dark-version) .sidenav.bg-gradient-dark .nav-item:not(.active) .nav-link span,
+body:not(.dark-version) .sidenav.bg-gradient-dark .nav-item:not(.active) .nav-link i,
+body:not(.dark-version) .sidenav.bg-dark .nav-item:not(.active) .nav-link span,
+body:not(.dark-version) .sidenav.bg-dark .nav-item:not(.active) .nav-link i {
+    color: #ffffff !important;
+    opacity: 0.7 !important;
+}
+
+/* - Dark Mode + White Sidenav */
+.dark-version .sidenav.bg-white .navbar-heading,
+.dark-version .sidenav.bg-white .nav-link span,
+.dark-version .sidenav.bg-white .nav-link i {
+    color: #344767 !important;
+}
+.dark-version .sidenav.bg-white .nav-item.active .nav-link span,
+.dark-version .sidenav.bg-white .nav-item.active .nav-link i {
+    opacity: 1 !important;
+}
+
+/* 3. Mobile-Specific Overrides */
+@media (max-width: 1199.98px) {
+    body.g-sidenav-show.dark-version .sidenav {
+        background: #20222A !important;
+    }
+    body.g-sidenav-show.dark-version .sidenav .navbar-heading,
+    body.g-sidenav-show.dark-version .sidenav .nav-item.active .nav-link span,
+    body.g-sidenav-show.dark-version .sidenav .nav-item.active .nav-link i,
+    body.g-sidenav-show.dark-version .sidenav .nav-item:hover .nav-link span,
+    body.g-sidenav-show.dark-version .sidenav .nav-item:hover .nav-link i {
+        color: #ffffff !important;
+        opacity: 1 !important;
+    }
+    body.g-sidenav-show.dark-version .sidenav .nav-item:not(.active) .nav-link span,
+    body.g-sidenav-show.dark-version .sidenav .nav-item:not(.active) .nav-link i {
+        color: #ffffff !important;
+        opacity: 0.7 !important;
+    }
+}
+
+/*
+=========================================================
+=== COMPONENT-SPECIFIC FIXES                          ===
+=========================================================
+*/
+
+/* 1. Boxed Form Inputs */
+.form-control, .form-select {
+    border-radius: 0.375rem !important;
+}
+.form-control,
+.form-select,
+textarea.form-control {
+    border: 1px solid #d2d6da !important;
+}
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+   border-color: #e91e63 !important;
+   box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2) !important;
+}
+.dark-version .form-control,
+.dark-version .form-select,
+.dark-version textarea.form-control {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+.dark-version .form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+/* 2. Light Mode Text Contrast */
+body:not(.dark-version) .table td,
+body:not(.dark-version) .table th,
+body:not(.dark-version) p,
+body:not(.dark-version) label.form-label,
+body:not(.dark-version) .form-text {
+    color: #344767 !important;
+}
+
+/* 3. General Table Fixes */
+.table > tbody > tr:last-child > td {
+    border-bottom-width: 1px !important;
+}

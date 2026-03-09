@@ -1,0 +1,96 @@
+/*
+    REWORKED FLEXBOX LAYOUT
+    This is a simpler, more robust approach to the sidebar layout.
+*/
+
+:root {
+    --primary-admin-light: #f8f9fa;
+    --neutral-white: #ffffff;
+    --text-dark: #212529;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+#wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar-wrapper {
+    flex-shrink: 0;
+    width: 15rem;
+    transition: margin-left .25s ease-out;
+    background-color: var(--neutral-white);
+    border-right: 1px solid #dee2e6;
+}
+
+#page-content-wrapper {
+    flex-grow: 1;
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--primary-admin-light);
+}
+
+/*
+    Sidebar State Management (CSS-First Approach)
+*/
+
+/* --- DESKTOP VIEW (992px and larger) --- */
+@media (min-width: 992px) {
+    /* Default: sidebar is visible */
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+    /* Toggled: sidebar is hidden */
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+/* --- MOBILE VIEW (smaller than 992px) --- */
+@media (max-width: 991.98px) {
+    /* Default: sidebar is hidden */
+    #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+    /* Toggled: sidebar is visible */
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: 0;
+    }
+}
+
+
+/* --- Original Helper & Theming Classes --- */
+
+.navbar-putih-kustom {
+    background-color: var(--neutral-white) !important;
+}
+
+.navbar-putih-kustom .nav-link,
+.navbar-putih-kustom .navbar-brand {
+    color: var(--text-dark);
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+.alert-danger ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+/* FIX: Force dropdown text color to be visible */
+select.form-control,
+select.form-control option {
+    color: var(--text-dark) !important;
+    background-color: var(--neutral-white) !important;
+}
